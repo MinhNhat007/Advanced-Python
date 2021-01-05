@@ -77,6 +77,7 @@ def chart2():
 
 @app.route('/chart3')
 def chart3():
+    global symbol
     global start
     global end
     global data
@@ -84,7 +85,8 @@ def chart3():
     global today
     global one_month_ago
 
-    predicted_value = logica.data_prediction(data)
+    three_month_data = gatherer.data(symbol, 'yahoo', today - timedelta(3*30), today)
+    predicted_value = logica.data_prediction(three_month_data)
     return render_template('chart3.html', predicted_value=predicted_value, company=comp_name, start=start, end=end,
                            today=today, one_month_ago=one_month_ago)
 
